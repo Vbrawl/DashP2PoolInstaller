@@ -1,0 +1,3 @@
+echo "Deleting dash node and all it's data!"
+rm -rf ~/.dashcore
+echo "Deletion complete!"

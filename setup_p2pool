@@ -1,0 +1,38 @@
+# Install dependencies
+sudo apt install python2 python2-dev gcc g++ git curl virtualenv python2-setuptools-whl python2-pip-whl -y
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+sudo python2 get-pip.py
+rm get-pip.py
+
+
+# Download p2pool-dash
+git clone https://github.com/dashpay/p2pool-dash.git
+cd p2pool-dash
+
+# Download and Install (for user) dash_hash submodule
+git submodule update --init
+#cd dash_hash
+#python2 setup.py install --user
+#cd ..
+
+# Add extra interfaces to the control panel
+mv web-static web-static.old
+echo "Original web-static contents have been backed up to web-static.old"
+git clone https://github.com/justino/p2pool-ui-punchy web-static
+cd web-static
+git clone https://github.com/hardcpp/P2PoolExtendedFrontEnd ext
+cd ..
+
+# Install twisted in a VE
+virtualenv --python=$(which python2) .
+source bin/activate
+pip install twisted
+deactivate
+
+# Show messages
+echo
+echo "p2pool is now installed"
+echo "To start p2pool:"
+echo "1) go to p2pool-dash"
+echo "2) run source bin/activate"
+echo "3) run python run_p2pool.py --external-ip <public node ip> -w <port> -f <fee> -a <payout-address> --give-author <donation> --dashd-config-path ~/.dashcore/dash.conf"

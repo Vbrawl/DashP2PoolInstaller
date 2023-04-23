@@ -1,0 +1,20 @@
+echo "Purging p2pool-dash!"
+rm -rf p2pool-dash
+echo "p2pool-dash successfully deleted!"
+echo
+echo "Although p2pool is deleted, some of it's dependencies are still installed"
+echo "and need to be deleted manually."
+echo
+echo "Installed dependencies:"
+echo "* python2"
+echo "* python2-dev"
+echo "* gcc"
+echo "* g++"
+echo "* git"
+echo "* curl"
+echo "* virtualenv"
+echo "* python2-setuptools-whl"
+echo "* python2-pip-whl"
+echo
+echo "To remove them, run:"
+echo "sudo apt remove --purge python2 python2-dev gcc g++ git curl virtualenv python2-setuptools-whl python2-pip-whl"

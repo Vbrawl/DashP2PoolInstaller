@@ -1,0 +1,44 @@
+dashcore_link=https://github.com/dashpay/dash/releases/download/v19.0.0/dashcore-19.0.0-x86_64-linux-gnu.tar.gz
+rpc_user=RPC_USER
+rpc_password=RPC_PASSWORD
+
+
+# Get dependencies
+sudo apt install wget curl -y
+
+
+
+# Download dashcore from the server (NOTE: This will need update in the future)
+# TODO: Before running the script go to dash.org and find the link to the latest version
+wget $dashcore_link -O dashcore.tar.gz
+
+# extract dashcore
+mkdir ~/.dashcore
+mkdir /tmp/dashcore
+tar xfvz dashcore.tar.gz --directory /tmp/dashcore
+
+# Copy needed files
+cp /tmp/dashcore/*/bin/dashd ~/.dashcore/
+cp /tmp/dashcore/*/bin/dash-cli ~/.dashcore/
+
+# Clean unneeded files
+rm -r /tmp/dashcore
+rm dashcore.tar.gz
+
+
+# Write dash.conf
+echo "rpcuser=$RPCUSER" > ~/.dashcore/dash.conf
+echo "rpcpassword=$RPCUSER" >> ~/.dashcore/dash.conf
+echo "listen=1" >> ~/.dashcore/dash.conf
+echo "server=1" >> ~/.dashcore/dash.conf
+echo "daemon=1" >> ~/.dashcore/dash.conf
+echo "maxconnections=64" >> ~/.dashcore/dash.conf
+
+
+echo
+echo "All set, please perform the following actions:"
+echo "1) go to \"~/.dashcore\" folder"
+echo "2) type \"./dashd\" and wait until synchronization is finished."
+echo "NOTE: To check if synchronization finished you'll need to perform the next step"
+echo "3) run \"./dash-cli getblockcount\" and make sure the output is equal to the current number of blocks in dash (found here: https://insight.dash.org/insight/)"
+echo "After synchronization is complete, run \"./setup_p2pool\"."
